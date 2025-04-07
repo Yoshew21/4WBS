@@ -20,9 +20,22 @@ namespace _4WBS.Controllers
 
         // GET: api/<LibrariesController>
         [HttpGet]
-        public ActionResult<IEnumerable<LibraryDto>> Get()
+        public ActionResult<IEnumerable<LibraryDto>> Get([FromQuery] PageRequest pageRequest, string name = "")
         {
-            var libraries = _libraryService.GetAll(); 
+            if (string.Empty == name)
+            {
+                var result = _libraryService.GetAll(pageRequest.Index, pageRequest.Offset);
+                var pageResponse = new PageResponse<LibraryDto>()
+                {
+                    Content = result.ToDto(),
+                    Index = pageRequest.Index,
+                    Offset = pageRequest.Offset,
+                    TotalElement = _libraryService.Count()
+                }; 
+                return Ok(pageResponse);
+            }
+
+            var libraries = _libraryService.GetAll(name); 
             if (!libraries.Any())
             {
                 return NoContent(); 

@@ -18,10 +18,25 @@ public class LibraryService : ILibraryService
         Libraries.Add(new Library { Id = 2, Name = "Library2" });
         Libraries.Add(new Library { Id = 3, Name = "Library3" });
     }
+    
+    public IEnumerable<Library> GetAll(int index, int offset)
+    {
+        return Libraries.Skip(index).Take(offset); 
+    }
+
+    public int Count()
+    {
+        return Libraries.Count; 
+    }
 
     public IEnumerable<Library> GetAll()
     {
         return Libraries;
+    }
+    
+    public IEnumerable<Library> GetAll(string name)
+    {
+        return Libraries.Where(l => l.Name.Contains(name));
     }
 
     public Library AddLibrary(Library library)
