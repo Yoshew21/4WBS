@@ -70,8 +70,15 @@ namespace _4WBS.Controllers
 
         // DELETE api/<LibrariesController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
+            var library = _libraryService.GetLibraryById(id);
+            if (library == null)
+            {
+                return NotFound();
+            }
+            var libDeleted = _libraryService.DeleteLibrary(library);
+            return Ok(libDeleted.ToDto());
         }
     }
 }

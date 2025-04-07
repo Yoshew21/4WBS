@@ -8,4 +8,5 @@ public interface ILibraryService
     Library AddLibrary(Library library);
     Library GetLibraryById(int id);
     Library UpdateLibrary(Library library);
+    Library DeleteLibrary(Library library);
 }

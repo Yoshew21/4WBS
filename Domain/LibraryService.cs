@@ -45,4 +45,14 @@ public class LibraryService : ILibraryService
         }
         return existingLibrary;
     }
+    
+    public Library DeleteLibrary(Library library)
+    {
+        var existingLibrary = Libraries.FirstOrDefault(l => l.Id == library.Id);
+        if (existingLibrary != null)
+        {
+            Libraries.Remove(existingLibrary);
+        }
+        return existingLibrary;
+    }
 } 
