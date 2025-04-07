@@ -40,9 +40,10 @@ namespace _4WBS.Controllers
 
         // POST api/<LibrariesController>
         [HttpPost]
-        public void Post([FromBody] LibraryDto libraryDto)
+        public IActionResult Post([FromBody] LibraryDto libraryDto)
         {
-            _libraryService.AddLibrary(libraryDto.ToEntity());
+            var libraryCreated = _libraryService.AddLibrary(libraryDto.ToEntity());
+            return Created(string.Empty, libraryCreated);
         }
 
         // PUT api/<LibrariesController>/5

@@ -24,9 +24,10 @@ public class LibraryService : ILibraryService
         return Libraries;
     }
 
-    public void AddLibrary(Library library)
+    public Library AddLibrary(Library library)
     {
         Libraries.Add(library);
+        return library;
     }
 
 } 
