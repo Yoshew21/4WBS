@@ -33,7 +33,7 @@ namespace _4WBS.Controllers
 
         // GET api/<LibrariesController>/5
         [HttpGet("{id}")]
-        public ActionResult<IEnumerable<LibraryDto>> Get(int id)        
+        public ActionResult<LibraryDto> Get(int id)        
         {
             var libraries = _libraryService.GetLibraryById(id); 
             if (libraries == null)
@@ -48,7 +48,7 @@ namespace _4WBS.Controllers
         public IActionResult Post([FromBody] LibraryDto libraryDto)
         {
             var libraryCreated = _libraryService.AddLibrary(libraryDto.ToEntity());
-            return Created(string.Empty, libraryCreated);
+            return Created(string.Empty, libraryCreated.ToDto());
         }
 
         // PUT api/<LibrariesController>/5
@@ -58,7 +58,7 @@ namespace _4WBS.Controllers
             var library = libraryDto.ToEntity();
             library.Id = id;
             var libUpdated = _libraryService.UpdateLibrary(library);
-            return Ok(libUpdated);
+            return Ok(libUpdated.ToDto());
         }
         
         // PATCH api/<LibrariesController>/5
