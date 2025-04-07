@@ -14,9 +14,9 @@ public class LibraryService : ILibraryService
 
     public LibraryService()
     {
-        Libraries.Add(new Library { Name = "Library1" });
-        Libraries.Add(new Library { Name = "Library2" });
-        Libraries.Add(new Library { Name = "Library3" });
+        Libraries.Add(new Library { Id = 1, Name = "Library1" });
+        Libraries.Add(new Library { Id = 2, Name = "Library2" });
+        Libraries.Add(new Library { Id = 3, Name = "Library3" });
     }
 
     public IEnumerable<Library> GetAll()
@@ -26,6 +26,7 @@ public class LibraryService : ILibraryService
 
     public Library AddLibrary(Library library)
     {
+        library.Id = Libraries.Max(l => l.Id) + 1;
         Libraries.Add(library);
         return library;
     }

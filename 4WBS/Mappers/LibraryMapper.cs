@@ -7,7 +7,7 @@ public static class LibraryMapper
 {
     public static LibraryDto ToDto(this Library library)
     {
-        return new LibraryDto() { Name = library.Name };
+        return new LibraryDto() { Name = library.Name, Id = library.Id };
     }
     
     public static IEnumerable<LibraryDto> ToDto(this IEnumerable<Library> libraries)
@@ -17,6 +17,6 @@ public static class LibraryMapper
     
     public static Library ToEntity(this LibraryDto library)
     {
-        return new Library() { Name = library.Name };
+        return new Library() { Name = library.Name, Id = library.Id };
     }
 }
