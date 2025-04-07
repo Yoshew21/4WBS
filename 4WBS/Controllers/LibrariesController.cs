@@ -33,9 +33,14 @@ namespace _4WBS.Controllers
 
         // GET api/<LibrariesController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public ActionResult<IEnumerable<LibraryDto>> Get(int id)        
         {
-            return "value";
+            var libraries = _libraryService.GetLibraryById(id); 
+            if (libraries == null)
+            {
+                return NotFound(); 
+            }
+            return Ok(libraries.ToDto());
         }
 
         // POST api/<LibrariesController>

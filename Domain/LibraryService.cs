@@ -31,4 +31,9 @@ public class LibraryService : ILibraryService
         return library;
     }
 
+    public Library GetLibraryById(int id)
+    {
+        return Libraries.FirstOrDefault(l => l.Id == id);
+    }
+
 } 
