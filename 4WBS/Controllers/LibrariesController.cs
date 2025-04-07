@@ -1,4 +1,5 @@
 using _4WBS.Mappers;
+using Domain;
 using Dtos;
 using Entities;
 using Microsoft.AspNetCore.Http;
@@ -10,24 +11,16 @@ namespace _4WBS.Controllers
     [ApiController]
     public class LibrariesController : ControllerBase
     {
-
-        private List<Library> libraries
-        {
-            get;
-            set;
-        } = new List<Library>();
-        public LibrariesController()
-        {
-            libraries.Add(new Library { Name = "Library1" });
-            libraries.Add(new Library { Name = "Library2" });
-            libraries.Add(new Library { Name = "Library3" });
-        }
-        
+        private readonly LibraryService _libraryService = new LibraryService();
         // GET: api/<LibrariesController>
         [HttpGet]
         public ActionResult<IEnumerable<LibraryDto>> Get()
         {
-            if (libraries.Count == 0)
+            var libraries = _libraryService.GetAll();
+            if (libraries.Any())
+            {
+                return NotFound();
+            }
             {
                 return NoContent();
             }
