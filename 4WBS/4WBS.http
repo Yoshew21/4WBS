@@ -1,0 +1,6 @@
+@_4WBS_HostAddress = http://localhost:5231
+
+GET {{_4WBS_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
