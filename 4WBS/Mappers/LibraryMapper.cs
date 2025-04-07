@@ -14,4 +14,9 @@ public static class LibraryMapper
     {
         return libraries.Select(ToDto);
     }
+    
+    public static Library ToEntity(this LibraryDto library)
+    {
+        return new Library() { Name = library.Name };
+    }
 }

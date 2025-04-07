@@ -19,9 +19,6 @@ namespace _4WBS.Controllers
             var libraries = _libraryService.GetAll();
             if (libraries.Any())
             {
-                return NotFound();
-            }
-            {
                 return NoContent();
             }
             return Ok(libraries.ToDto());
