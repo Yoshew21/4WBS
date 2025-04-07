@@ -53,14 +53,24 @@ namespace _4WBS.Controllers
 
         // PUT api/<LibrariesController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public IActionResult Put(int id, [FromBody] LibraryDto libraryDto)
         {
+            var library = _libraryService.GetLibraryById(id);
+            if (library == null)
+            {
+                return NotFound();
+            }
+
+            libraryDto.Id = id;
+            var updatedLibrary = _libraryService.UpdateLibrary(libraryDto.ToEntity());
+            return Ok(updatedLibrary);
         }
         
         // PATCH api/<LibrariesController>/5
         [HttpPatch("{id}")]
         public void Patch(int id, [FromBody] string value)
         {
+            
         }
 
         // DELETE api/<LibrariesController>/5

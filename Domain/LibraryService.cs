@@ -36,4 +36,13 @@ public class LibraryService : ILibraryService
         return Libraries.FirstOrDefault(l => l.Id == id);
     }
 
+    public Library UpdateLibrary(Library library)
+    {
+        var existingLibrary = Libraries.FirstOrDefault(l => l.Id == library.Id);
+        if (existingLibrary != null)
+        {
+            existingLibrary.Name = library.Name;
+        }
+        return existingLibrary;
+    }
 } 
