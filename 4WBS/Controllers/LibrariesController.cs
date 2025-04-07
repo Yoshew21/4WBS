@@ -12,15 +12,22 @@ namespace _4WBS.Controllers
     public class LibrariesController : ControllerBase
     {
         private readonly LibraryService _libraryService = new LibraryService();
+      
+        public LibrariesController()
+        {
+          
+        }
+
         // GET: api/<LibrariesController>
         [HttpGet]
         public ActionResult<IEnumerable<LibraryDto>> Get()
         {
-            var libraries = _libraryService.GetAll();
-            if (libraries.Any())
+            var libraries = _libraryService.GetAll(); 
+            if (!libraries.Any())
             {
-                return NoContent();
+                return NoContent(); 
             }
+
             return Ok(libraries.ToDto());
         }
 
