@@ -3,7 +3,7 @@ using Entities;
 
 namespace Domain;
 
-public class LibraryService
+public class LibraryService : ILibraryService
 {
     public List<Library> Libraries
     {
@@ -24,5 +24,9 @@ public class LibraryService
         return Libraries;
     }
 
+    public void AddLibrary(Library library)
+    {
+        Libraries.Add(library);
+    }
 
 } 

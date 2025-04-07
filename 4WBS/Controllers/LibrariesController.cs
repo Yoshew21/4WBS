@@ -11,11 +11,11 @@ namespace _4WBS.Controllers
     [ApiController]
     public class LibrariesController : ControllerBase
     {
-        private readonly LibraryService _libraryService = new LibraryService();
+        private readonly ILibraryService _libraryService;
       
-        public LibrariesController()
+        public LibrariesController(ILibraryService libraryService)
         {
-          
+            _libraryService = libraryService;
         }
 
         // GET: api/<LibrariesController>
@@ -40,8 +40,9 @@ namespace _4WBS.Controllers
 
         // POST api/<LibrariesController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public void Post([FromBody] LibraryDto libraryDto)
         {
+            _libraryService.AddLibrary(libraryDto.ToEntity());
         }
 
         // PUT api/<LibrariesController>/5
