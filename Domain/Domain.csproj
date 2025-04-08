@@ -9,6 +9,9 @@
     <ItemGroup>
       <ProjectReference Include="..\Dtos\Dtos.csproj" />
       <ProjectReference Include="..\Entities\Entities.csproj" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.3" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="9.0.3" />
+        <ProjectReference Include="..\Persistance\Persistance.csproj" />
     </ItemGroup>
 
 </Project>

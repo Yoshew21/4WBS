@@ -8,6 +8,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dtos", "Dtos\Dtos.csproj", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{74AC1148-1E7E-4431-AD65-1816373202AD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Persistance", "Persistance\Persistance.csproj", "{7A906770-AE2A-40F0-90F0-3A7C66FAF2A6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{74AC1148-1E7E-4431-AD65-1816373202AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{74AC1148-1E7E-4431-AD65-1816373202AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{74AC1148-1E7E-4431-AD65-1816373202AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7A906770-AE2A-40F0-90F0-3A7C66FAF2A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A906770-AE2A-40F0-90F0-3A7C66FAF2A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A906770-AE2A-40F0-90F0-3A7C66FAF2A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A906770-AE2A-40F0-90F0-3A7C66FAF2A6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
