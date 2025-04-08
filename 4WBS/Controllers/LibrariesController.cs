@@ -2,17 +2,18 @@ using _4WBS.Mappers;
 using Domain;
 using Dtos;
 using Entities;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace _4WBS.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize]
     [ApiController]
     public class LibrariesController : ControllerBase
     {
+
         private readonly ILibraryService _libraryService;
       
         public LibrariesController(ILibraryService libraryService)
@@ -24,46 +25,47 @@ namespace _4WBS.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<LibraryDto>>> Get([FromQuery] PageRequest pageRequest, string name = "")
         {
-            if (string.IsNullOrEmpty(name))
+            if (string.Empty == name)
             {
                 var result = await _libraryService.GetAll(pageRequest.Index, pageRequest.Offset);
                 var pageResponse = new PageResponse<LibraryDto>()
                 {
-                    Content = result.Select(lib => lib.ToDto()),
+                    Content = result.ToDto(),
                     Index = pageRequest.Index,
                     Offset = pageRequest.Offset,
                     TotalElement = await _libraryService.Count()
                 }; 
-                return Ok(pageResponse);
+
+                 return Ok(pageResponse);
             }
 
-            var libraries = await _libraryService.GetAll(name);
+            var libraries = await _libraryService.GetByName(name); 
             if (!libraries.Any())
             {
                 return NoContent(); 
             }
 
-            return Ok(libraries.Select(lib => lib.ToDto()));
+            return Ok(libraries.ToDto());
         }
 
         // GET api/<LibrariesController>/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<LibraryDto>> Get(int id)        
+        public async Task<IActionResult> Get(int id)
         {
-            var library = await _libraryService.GetLibraryById(id);
-            if (library == null)
+            var lib = await _libraryService.GetById(id);
+            if (lib == null)
             {
                 return NotFound(); 
             }
-            return Ok(library.ToDto());
+            return Ok(lib.ToDto());
         }
 
         // POST api/<LibrariesController>
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] LibraryDto libraryDto)
         {
-            var libraryCreated = await _libraryService.AddLibrary(libraryDto.ToEntity());
-            return Created(string.Empty, libraryCreated.ToDto());
+           var libraryCreated = await _libraryService.AddLibrary(libraryDto.ToEntity());
+           return Created(string.Empty, libraryCreated.ToDto()); 
         }
 
         // PUT api/<LibrariesController>/5
@@ -73,27 +75,16 @@ namespace _4WBS.Controllers
             var library = libraryDto.ToEntity();
             library.Id = id;
             var libUpdated = await _libraryService.UpdateLibrary(library);
-            return Ok(libUpdated.ToDto());
-        }
-        
-        // PATCH api/<LibrariesController>/5
-        [HttpPatch("{id}")]
-        public void Patch(int id, [FromBody] string value)
-        {
-            // Not implemented
+            return Ok(libUpdated.ToDto()); 
+
         }
 
         // DELETE api/<LibrariesController>/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            var library = await _libraryService.GetLibraryById(id);
-            if (library == null)
-            {
-                return NotFound();
-            }
-            var libDeleted = await _libraryService.DeleteLibrary(library);
-            return Ok(libDeleted.ToDto());
+            await _libraryService.Delete(id);
+            return NoContent(); 
         }
     }
 }
