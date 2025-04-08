@@ -20,7 +20,7 @@ namespace _4WBS.Controllers
 
         // GET: api/<LibrariesController>
         [HttpGet]
-        public ActionResult<IEnumerable<LibraryDto>> Get([FromQuery] PageRequest pageRequest, string name = "")
+        public async Task<ActionResult<IEnumerable<LibraryDto>>> Get([FromQuery] PageRequest pageRequest, string name = "")
         {
             if (string.Empty == name)
             {
@@ -46,7 +46,7 @@ namespace _4WBS.Controllers
 
         // GET api/<LibrariesController>/5
         [HttpGet("{id}")]
-        public ActionResult<LibraryDto> Get(int id)        
+        public async Task<ActionResult<LibraryDto>> Get(int id)        
         {
             var libraries = _libraryService.GetLibraryById(id); 
             if (libraries == null)
@@ -58,7 +58,7 @@ namespace _4WBS.Controllers
 
         // POST api/<LibrariesController>
         [HttpPost]
-        public IActionResult Post([FromBody] LibraryDto libraryDto)
+        public async Task<IActionResult> Post([FromBody] LibraryDto libraryDto)
         {
             var libraryCreated = _libraryService.AddLibrary(libraryDto.ToEntity());
             return Created(string.Empty, libraryCreated.ToDto());
@@ -66,7 +66,7 @@ namespace _4WBS.Controllers
 
         // PUT api/<LibrariesController>/5
         [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody] LibraryDto libraryDto)
+        public async Task<IActionResult> Put(int id, [FromBody] LibraryDto libraryDto)
         {
             var library = libraryDto.ToEntity();
             library.Id = id;
@@ -83,7 +83,7 @@ namespace _4WBS.Controllers
 
         // DELETE api/<LibrariesController>/5
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
             var library = _libraryService.GetLibraryById(id);
             if (library == null)

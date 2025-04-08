@@ -4,11 +4,11 @@ namespace Domain;
 
 public interface ILibraryService
 {
-    IEnumerable<Library> GetAll(int index, int offset);
-    int Count();
-    IEnumerable<Library> GetAll(string name);
-    Library AddLibrary(Library library);
-    Library GetLibraryById(int id);
-    Library UpdateLibrary(Library library);
-    Library DeleteLibrary(Library library);
+    Task<IEnumerable<Library>> GetAll(int index, int offset);
+    Task<int> Count();
+    Task<IEnumerable<Library>> GetAll(string name);
+    Task<Library> AddLibrary(Library library);
+    Task<Library> GetLibraryById(int id);
+    Task<Library> UpdateLibrary(Library library);
+    Task<Library> DeleteLibrary(Library library);
 }
